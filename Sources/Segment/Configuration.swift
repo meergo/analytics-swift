@@ -114,8 +114,7 @@ public class Configuration {
         var flushInterval: TimeInterval = 30
         var defaultSettings: Settings? = nil
         var autoAddSegmentDestination: Bool = true
-        var apiHost: String = HTTPClient.getDefaultAPIHost()
-        var cdnHost: String = HTTPClient.getDefaultCDNHost()
+        var endpoint: String = HTTPClient.getDefaultEndpoint()
         var requestFactory: ((URLRequest) -> URLRequest)? = nil
         var errorHandler: ((Error) -> Void)? = nil
         var flushPolicies: [FlushPolicy] = [CountBasedFlushPolicy(), IntervalBasedFlushPolicy()]
@@ -211,15 +210,11 @@ extension Configuration {
         return self
     }
 
-    /// Sets a default set of Settings.  Normally these will come from Segment's
-    /// api.segment.com/v1/projects/<writekey>/settings, however in instances such
-    /// as first app launch, it can be useful to have a pre-set batch of settings to
-    /// ensure that the proper destinations and other settings are enabled prior
+    /// Sets a default set of Settings.  Normally these will come from the
+    /// configured endpoint at `$endpoint/settings/$writeKey`, however in instances
+    /// such as first app launch, it can be useful to have a pre-set batch of settings
+    /// to ensure that the proper destinations and other settings are enabled prior
     /// to receiving them from the Settings endpoint.  The default is `nil`.
-    ///
-    /// You can retrieve a copy of your settings from the following URL:
-    ///
-    /// https://cdn-settings.segment.com/v1/projects/<writekey>/settings
     ///
     /// Example:
     /// ```
@@ -247,27 +242,16 @@ extension Configuration {
         return self
     }
 
-    /// Sets an alternative API host.  This is useful when a proxy is in use, or
-    /// events need to be routed to certain locales at all times (such as the EU).
-    /// The default value is `api.segment.io/v1`.
+    /// Sets a custom endpoint for event uploads and settings retrieval.
+    /// Events are sent to `$endpoint` and settings are fetched from
+    /// `$endpoint/settings/$writeKey`.
+    /// The default value is `test.example.com/v1`.
     ///
-    /// - Parameter value: A string representing the desired API host.
+    /// - Parameter value: A string representing the desired endpoint.
     /// - Returns: The current Configuration.
     @discardableResult
-    public func apiHost(_ value: String) -> Configuration {
-        values.apiHost = value
-        return self
-    }
-
-    /// Sets an alternative CDN host for settings retrieval. This is useful when
-    /// a proxy is in use, or settings need to be queried from certain locales at
-    /// all times (such as the EU). The default value is `cdn-settings.segment.com/v1`.
-    ///
-    /// - Parameter value: A string representing the desired CDN host.
-    /// - Returns: The current Configuration.
-    @discardableResult
-    public func cdnHost(_ value: String) -> Configuration {
-        values.cdnHost = value
+    public func endpoint(_ value: String) -> Configuration {
+        values.endpoint = value
         return self
     }
 

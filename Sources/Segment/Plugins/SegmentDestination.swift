@@ -25,7 +25,7 @@ public class SegmentAnonymousId: AnonymousIdGenerator {
 public class SegmentDestination: DestinationPlugin, Subscriber, FlushCompletion {
     internal enum Constants: String {
         case integrationName = "Segment.io"
-        case apiHost = "apiHost"
+        case endpoint = "endpoint"
         case apiKey = "apiKey"
     }
 
@@ -85,10 +85,10 @@ public class SegmentDestination: DestinationPlugin, Subscriber, FlushCompletion 
             }
         }
          */
-        // if customer specifies a different apiHost (ie: eu1.segmentapis.com) at app.segment.com ...
-        if let host = segmentInfo?[Self.Constants.apiHost.rawValue] as? String, host.isEmpty == false {
-            if host != analytics.configuration.values.apiHost {
-                analytics.configuration.values.apiHost = host
+        // if customer specifies a different endpoint at app.segment.com ...
+        if let endpoint = segmentInfo?[Self.Constants.endpoint.rawValue] as? String, endpoint.isEmpty == false {
+            if endpoint != analytics.configuration.values.endpoint {
+                analytics.configuration.values.endpoint = endpoint
                 httpClient = HTTPClient(analytics: analytics)
             }
         }

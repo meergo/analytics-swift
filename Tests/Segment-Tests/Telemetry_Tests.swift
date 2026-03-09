@@ -20,7 +20,7 @@ class TelemetryTests: XCTestCase {
         Telemetry.shared.reset()
     }
 
-    func mockTelemetryHTTPClient(telemetryHost: String = Telemetry.shared.host, shouldThrow: Bool = false) {
+    func mockTelemetryHTTPClient(telemetryEndpoint: String = Telemetry.shared.endpoint, shouldThrow: Bool = false) {
         let sessionMock = URLSessionMock()
         if shouldThrow {
             sessionMock.shouldThrow = true

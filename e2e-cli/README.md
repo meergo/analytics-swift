@@ -27,8 +27,7 @@ Or use the built binary directly:
 ```jsonc
 {
   "writeKey": "your-write-key",       // required
-  "apiHost": "https://...",           // optional — SDK default if omitted
-  "cdnHost": "https://...",           // optional — SDK default if omitted
+  "endpoint": "https://...",           // optional — SDK default if omitted
   "sequences": [                      // required — event sequences to send
     {
       "delayMs": 0,

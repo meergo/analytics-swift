@@ -63,15 +63,11 @@ public class ObjCConfiguration: NSObject {
         }
     }
 
-    /// Sets a default set of Settings.  Normally these will come from Segment's
-    /// api.segment.com/v1/projects/<writekey>/settings, however in instances such
-    /// as first app launch, it can be useful to have a pre-set batch of settings to
-    /// ensure that the proper destinations and other settings are enabled prior
+    /// Sets a default set of Settings.  Normally these will come from the
+    /// configured endpoint at `$endpoint/settings/$writeKey`, however in instances
+    /// such as first app launch, it can be useful to have a pre-set batch of settings
+    /// to ensure that the proper destinations and other settings are enabled prior
     /// to receiving them from the Settings endpoint.  The default is `nil`.
-    ///
-    /// You can retrieve a copy of your settings from the following URL:
-    ///
-    /// https://cdn-settings.segment.com/v1/projects/<writekey>/settings
     @objc
     public var defaultSettings: [String: Any] {
         get {
@@ -113,29 +109,15 @@ public class ObjCConfiguration: NSObject {
         }
     }
 
-    /// Sets an alternative API host.  This is useful when a proxy is in use, or
-    /// events need to be routed to certain locales at all times (such as the EU).
-    /// The default value is `api.segment.io/v1`.
+    /// Sets a custom endpoint for event uploads and settings retrieval.
+    /// The default value is `test.example.com/v1`.
     @objc
-    public var apiHost: String {
+    public var endpoint: String {
         get {
-            return configuration.values.apiHost
+            return configuration.values.endpoint
         }
         set(value) {
-            configuration.apiHost(value)
-        }
-    }
-
-    /// Sets an alternative CDN host for settings retrieval. This is useful when
-    /// a proxy is in use, or settings need to be queried from certain locales at
-    /// all times (such as the EU). The default value is `cdn-settings.segment.com/v1`.
-    @objc
-    public var cdnHost: String {
-        get {
-            return configuration.values.cdnHost
-        }
-        set(value) {
-            configuration.cdnHost(value)
+            configuration.endpoint(value)
         }
     }
 

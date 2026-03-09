@@ -70,7 +70,7 @@ public class Telemetry: Subscriber {
     public var errorHandler: ((Error) -> Void)? = logError
 
     internal var session: any HTTPSession
-    internal var host: String = HTTPClient.getDefaultAPIHost()
+    internal var endpoint: String = HTTPClient.getDefaultEndpoint()
     @Atomic internal var sampleRate: Double = 1.0 // inital sample rate should be 1.0, will be downsampled on start
     internal var sampleRateTest: Atomic<Double> { _sampleRate }
     private var flushTimer: Int = 30
@@ -201,7 +201,7 @@ public class Telemetry: Subscriber {
         queueBytes = 0
 
         let payload = try JSONEncoder().encode(["series": sendQueue])
-        var request = upload(apiHost: host)
+        var request = upload(endpoint: endpoint)
         request.httpBody = payload
 
         let task = session.dataTask(with: request) { data, response, error in
@@ -287,8 +287,8 @@ public class Telemetry: Subscriber {
         }
     }
 
-    private func upload(apiHost: String) -> URLRequest {
-        var request = URLRequest(url: URL(string: "https://\(apiHost)/m")!)
+    private func upload(endpoint: String) -> URLRequest {
+        var request = URLRequest(url: URL(string: "\(endpoint)/m")!)
         request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
 

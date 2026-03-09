@@ -16,20 +16,20 @@ public struct Settings: Codable {
     public var metrics: JSON? = nil
     public var consentSettings: JSON? = nil
 
-    public init(writeKey: String, apiHost: String) {
+    public init(writeKey: String, endpoint: String) {
         integrations = try! JSON([
             SegmentDestination.Constants.integrationName.rawValue: [
                 SegmentDestination.Constants.apiKey.rawValue: writeKey,
-                SegmentDestination.Constants.apiHost.rawValue: apiHost
+                SegmentDestination.Constants.endpoint.rawValue: endpoint
             ]
         ])
     }
-    
+
     public init(writeKey: String) {
         integrations = try! JSON([
             SegmentDestination.Constants.integrationName.rawValue: [
                 SegmentDestination.Constants.apiKey.rawValue: writeKey,
-                SegmentDestination.Constants.apiHost.rawValue: HTTPClient.getDefaultAPIHost()
+                SegmentDestination.Constants.endpoint.rawValue: HTTPClient.getDefaultEndpoint()
             ]
         ])
     }

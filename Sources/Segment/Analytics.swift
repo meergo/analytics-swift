@@ -93,8 +93,7 @@ public class Analytics {
 
         Telemetry.shared.increment(metric: Telemetry.INVOKE_METRIC) {it in 
             it["message"] = "configured"
-            it["apihost"] = configuration.values.apiHost
-            it["cdnhost"] = configuration.values.cdnHost
+            it["endpoint"] = configuration.values.endpoint
             it["flush"] =
                 "at:\(configuration.values.flushAt) int:\(configuration.values.flushInterval) pol:\(configuration.values.flushPolicies.count)"
             it["config"] = "seg:\(configuration.values.autoAddSegmentDestination) ua:\(configuration.values.userAgent ?? "N/A")"

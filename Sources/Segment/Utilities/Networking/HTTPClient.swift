@@ -18,13 +18,11 @@ public enum HTTPClientErrors: Error {
 }
 
 public class HTTPClient {
-    private static let defaultAPIHost = "api.segment.io/v1"
-    private static let defaultCDNHost = "cdn-settings.segment.com/v1"
+    private static let defaultEndpoint = "test.example.com/v1"
 
     internal var session: any HTTPSession
-    private var apiHost: String
+    private var endpoint: String
     private var apiKey: String
-    private var cdnHost: String
 
     private weak var analytics: Analytics?
 
@@ -32,18 +30,10 @@ public class HTTPClient {
         self.analytics = analytics
 
         self.apiKey = analytics.configuration.values.writeKey
-        self.apiHost = analytics.configuration.values.apiHost
-        self.cdnHost = analytics.configuration.values.cdnHost
-        
+        self.endpoint = analytics.configuration.values.endpoint
+
         self.session = analytics.configuration.values.httpSession()
     }
-
-    func segmentURL(for host: String, path: String) -> URL? {
-        let s = "https://\(host)\(path)"
-        let result = URL(string: s)
-        return result
-    }
-
 
     /// Starts an upload of events. Responds appropriately if successful or not. If not, lets the respondant
     /// know if the task should be retried or not based on the response.
@@ -53,7 +43,7 @@ public class HTTPClient {
     ///   - completion: The closure executed when done. Passes if the task should be retried or not if failed.
     @discardableResult
     func startBatchUpload(writeKey: String, batch: URL, completion: @escaping (_ result: Result<Bool, Error>) -> Void) -> (any DataTask)? {
-        guard let uploadURL = segmentURL(for: apiHost, path: "/b") else {
+        guard let uploadURL = URL(string: endpoint) else {
             self.analytics?.reportInternalError(HTTPClientErrors.failedToOpenBatch)
             completion(.failure(HTTPClientErrors.failedToOpenBatch))
             return nil
@@ -78,12 +68,12 @@ public class HTTPClient {
     ///   - completion: The closure executed when done. Passes if the task should be retried or not if failed.
     @discardableResult
     func startBatchUpload(writeKey: String, data: Data, completion: @escaping (_ result: Result<Bool, Error>) -> Void) -> (any UploadTask)? {
-        guard let uploadURL = segmentURL(for: apiHost, path: "/b") else {
+        guard let uploadURL = URL(string: endpoint) else {
             self.analytics?.reportInternalError(HTTPClientErrors.failedToOpenBatch)
             completion(.failure(HTTPClientErrors.failedToOpenBatch))
             return nil
         }
-          
+
         let urlRequest = configuredRequest(for: uploadURL, method: "POST")
 
         let dataTask = session.uploadTask(with: urlRequest, from: data) { [weak self] (data, response, error) in
@@ -119,7 +109,7 @@ public class HTTPClient {
     }
     
     func settingsFor(writeKey: String, completion: @escaping (Bool, Settings?) -> Void) {
-        guard let settingsURL = segmentURL(for: cdnHost, path: "/projects/\(writeKey)/settings") else {
+        guard let settingsURL = URL(string: "\(endpoint)/settings/\(writeKey)") else {
             completion(false, nil)
             return
         }
@@ -178,12 +168,8 @@ extension HTTPClient {
         return returnHeader
     }
 
-    internal static func getDefaultAPIHost() -> String {
-        return Self.defaultAPIHost
-    }
-
-    internal static func getDefaultCDNHost() -> String {
-        return Self.defaultCDNHost
+    internal static func getDefaultEndpoint() -> String {
+        return Self.defaultEndpoint
     }
 
     internal func configuredRequest(for url: URL, method: String) -> URLRequest {

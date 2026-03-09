@@ -231,7 +231,7 @@ extension System {
             if let defaults = configuration.values.defaultSettings {
                 settings = defaults
             } else {
-                settings = Settings(writeKey: configuration.values.writeKey, apiHost: HTTPClient.getDefaultAPIHost())
+                settings = Settings(writeKey: configuration.values.writeKey, endpoint: HTTPClient.getDefaultEndpoint())
             }
         }
         return System(

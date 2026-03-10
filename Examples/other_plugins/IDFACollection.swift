@@ -1,6 +1,6 @@
 //
 //  IDFACollection.swift
-//  SegmentUIKitExample
+//  MeergoUIKitExample
 //
 //  Created by Brandon Sneed on 4/12/21.
 //

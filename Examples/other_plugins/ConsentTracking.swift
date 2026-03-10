@@ -1,6 +1,6 @@
 //
 //  ConsentTracking.swift
-//  SegmentUIKitExample
+//  MeergoUIKitExample
 //
 //  Created by Brandon Sneed on 4/9/21.
 //

@@ -33,13 +33,13 @@ let package = Package(
                 .product(name: "Sovran", package: "sovran-swift"),
                 .product(name: "JSONSafeEncoding", package: "jsonsafeencoding-swift")
             ],
-            path: "Sources/Segment",
+            path: "Sources/Meergo",
             resources: [.process("Resources")]
         ),
         .testTarget(
             name: "Meergo-Tests",
             dependencies: ["Meergo"],
-            path: "Tests/Segment-Tests"
+            path: "Tests/Meergo-Tests"
         ),
     ]
 )

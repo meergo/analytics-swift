@@ -1,6 +1,6 @@
 //
 //  UIKitScreenTracking.swift
-//  SegmentUIKitExample
+//  MeergoUIKitExample
 //
 //  Created by Brandon Sneed on 4/13/21.
 //

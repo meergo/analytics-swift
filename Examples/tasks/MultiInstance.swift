@@ -1,6 +1,6 @@
 //
 //  MultiInstance.swift
-//  SegmentUIKitExample
+//  MeergoUIKitExample
 //
 //  Created by Brandon Sneed on 4/8/21.
 //

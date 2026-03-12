@@ -66,23 +66,23 @@ jobs:
         with:
           xcode-version: "26"
       - uses: actions/checkout@v2
-      - name: build for ios simulator
+      - name: build BasicExample
         run: |
           cd Examples/apps/BasicExample
           xcodebuild -workspace "BasicExample.xcworkspace" -scheme "BasicExample" -sdk iphonesimulator
-      - name: build for ios simulator
+      - name: build ObjCExample
         run: |
           cd Examples/apps/ObjCExample
           xcodebuild -workspace "ObjCExample.xcworkspace" -scheme "ObjCExample" -sdk iphonesimulator
-      - name: build for ios simulator
+      - name: build MeergoSwiftUIExample
         run: |
-          cd Examples/apps/MeergoUIKitExample
-          xcodebuild -workspace "MeergoUIKitExample.xcworkspace" -scheme "MeergoUIKitExample" -sdk iphonesimulator
-      - name: build for ios simulator
+          cd Examples/apps/MeergoSwiftUIExample
+          xcodebuild -workspace "MeergoSwiftUIExample.xcworkspace" -scheme "MeergoSwiftUIExample" -sdk iphonesimulator
+      - name: build MacExample
         run: |
-          cd Examples/apps/MeergoWeatherWidget
-          xcodebuild -workspace "MeergoWeatherWidget.xcworkspace" -scheme "MeergoWeatherWidget" -sdk iphonesimulator
-      - name: build for mac catalyst
+          cd Examples/apps/MacExample
+          xcodebuild -workspace "MacExample.xcworkspace" -scheme "MacExample"
+      - name: build watchOSExample
         run: |
-          cd Examples/apps/MeergoUIKitExample
-          xcodebuild -workspace "MeergoUIKitExample.xcworkspace" -scheme "MeergoUIKitExample" -destination 'platform=macOS,variant=Mac Catalyst'
+          cd Examples/apps/watchOSExample
+          xcodebuild -workspace "watchOSExample.xcworkspace" -scheme "watchOSExample WatchKit App" -sdk watchsimulator

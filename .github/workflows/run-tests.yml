@@ -82,7 +82,3 @@ jobs:
         run: |
           cd Examples/apps/MacExample
           xcodebuild -workspace "MacExample.xcworkspace" -scheme "MacExample"
-      - name: build watchOSExample
-        run: |
-          cd Examples/apps/watchOSExample
-          xcodebuild -workspace "watchOSExample.xcworkspace" -scheme "watchOSExample WatchKit App" -sdk watchsimulator

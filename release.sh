@@ -1,6 +1,5 @@
 #!/bin/bash
 
-PROJECT_NAME="Analytics-Swift"
 PRODUCT_NAME="Meergo"
 
 LOWER_PRODUCT_NAME="$(echo ${PRODUCT_NAME} | tr '[:upper:]' '[:lower:]')"
@@ -44,18 +43,6 @@ then
 	exit 1
 fi
 
-# check if `swift-create-xcframework` tool is installed.
-# command will return non-zero if not.
-if ! command -v swift-create-xcframework &> /dev/null
-then
-	echo "Swift's create-xcframework tool is required, but could not be found."
-	echo "Install it via:"
-    echo "    $ brew install mint"
-    echo "    $ mint install unsignedapps/swift-create-xcframework"
-    echo ""
-	exit 1
-fi
-
 # check if `gh` tool has auth access.
 # command will return non-zero if not auth'd.
 authd=$(gh auth status -t)
@@ -73,7 +60,7 @@ then
 	exit 1
 fi
 
-versionFile="./sources/${PRODUCT_NAME}/Version.swift"
+versionFile="./Sources/${PRODUCT_NAME}/Version.swift"
 
 # get last line in version.swift
 versionLine=$(tail -n 1 $versionFile)
@@ -82,7 +69,7 @@ version=$(cut -d "=" -f2- <<< "$versionLine")
 # remove quotes and spaces
 version=$(sed "s/[' \"]//g" <<< "$version")
 
-echo "${PROJECT_NAME} current version: $version"
+echo "Swift SDK current version: $version"
 
 # no args, so give usage.
 if [ $# -eq 0 ]
@@ -139,17 +126,3 @@ gh release create $newVersion -F $tempFile -t "Version $newVersion"
 
 # remove the tempfile.
 rm $tempFile
-
-# Not needed anymore.
-## build up the xcframework to upload to github
-#./build.sh
-#
-## upload the release
-#gh release upload $newVersion ${PRODUCT_NAME}.zip
-#gh release upload $newVersion ${PRODUCT_NAME}.sha256
-#
-## SPECIAL CASE: We need to upload Sovran and JSONSafeEncoding to save them time.
-#gh release upload $newVersion Sovran.zip
-#gh release upload $newVersion Sovran.sha256
-#gh release upload $newVersion JSONSafeEncoding.zip
-#gh release upload $newVersion JSONSafeEncoding.sha256

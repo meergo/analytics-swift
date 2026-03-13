@@ -9,7 +9,6 @@
 #import "ObjCExample-Swift.h"
 
 @import Meergo;
-@import SegmentMixpanel;
 
 @interface AppDelegate ()
 

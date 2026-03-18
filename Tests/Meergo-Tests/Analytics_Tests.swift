@@ -1020,15 +1020,15 @@ final class Analytics_Tests: XCTestCase {
         XCTAssertEqual(outputReader.lastEvent?.anonymousId, anonIdGenerator.currentId)
 
         analytics?.identify(userId: "Roger")
-        XCTAssertEqual(outputReader.lastEvent?.anonymousId, "blah-11")
-        XCTAssertEqual(anonIdGenerator.currentId, "blah-11")
+        XCTAssertEqual(outputReader.lastEvent?.anonymousId, "blah-111")
+        XCTAssertEqual(anonIdGenerator.currentId, "blah-111")
         XCTAssertEqual(outputReader.lastEvent?.anonymousId, anonIdGenerator.currentId)
 
         analytics?.reset()
 
         analytics?.screen(title: "Screen")
-        XCTAssertEqual(outputReader.lastEvent?.anonymousId, "blah-111")
-        XCTAssertEqual(anonIdGenerator.currentId, "blah-111")
+        XCTAssertEqual(outputReader.lastEvent?.anonymousId, "blah-1111")
+        XCTAssertEqual(anonIdGenerator.currentId, "blah-1111")
         XCTAssertEqual(outputReader.lastEvent?.anonymousId, anonIdGenerator.currentId)
 
         // get rid of this instance, leave it time to go away ...
@@ -1048,8 +1048,8 @@ final class Analytics_Tests: XCTestCase {
 
         // same anonId as last time, yes?
         analytics?.screen(title: "Screen")
-        XCTAssertEqual(outputReader.lastEvent?.anonymousId, "blah-111")
-        XCTAssertEqual(anonIdGenerator.currentId, "blah-111")
+        XCTAssertEqual(outputReader.lastEvent?.anonymousId, "blah-1111")
+        XCTAssertEqual(anonIdGenerator.currentId, "blah-1111")
         XCTAssertEqual(outputReader.lastEvent?.anonymousId, anonIdGenerator.currentId)
     }
 

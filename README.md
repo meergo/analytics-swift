@@ -1,10 +1,4 @@
-# Meergo Swift SDK (🚧 work in progress)
-
----
-
-## 🚨 Important note. 🚧 Please note that this SDK is still under development, has not been released, and is therefore not yet usable. Therefore, the commands and documentation provided here may not work or may be changed without notice. Stay tuned for updates. 👀
-
----
+# Meergo Swift SDK
 
 The Meergo Swift SDK lets you send customer event data from your Apple applications (iOS, macOS, tvOS, watchOS, visionOS) to your specified destinations.
 
